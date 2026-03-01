@@ -2,7 +2,7 @@
 import sys
 import pandas as pd
 
-optionA, optionM, optionNumber, optionN, optionB, optionT, optionF = None, None, None, None, None, None, None
+optionA, optionB, optionNumber, optionF, optionM, optionN, optionT = None, None, None, None, None, None, None
 filename = None
 
 # functions
@@ -10,7 +10,7 @@ def usage(msg=None):
     # Print a message if there was something specific you want to the user. 
     if msg is not None:
         print(msg, "\n")
-    print ("Usage: demooption.py [-a] [-b] [-c <integer>] <filename>")
+    print ("Usage: demooption.py [-a] [-b] [-c <integer>] [-f] [-m] [-n] [-t] <filename>")
     # Exit the program. We can not progress. Makes logic easier elsewhere.
     sys.exit(1)
 
