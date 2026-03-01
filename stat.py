@@ -8,7 +8,7 @@ import pandas as pd
 # In my example two options are just present or not, but the third requires a number to follow.
 # By initalising the option to None, you can later tell that you did not get this option.
 # If you initialise it to a value instead, then that becomes a default value, ready to use. 
-optionA, optionM, optionNumber = None, None, None
+optionA, optionM, optionNumber, optionN = None, None, None, None
 filename = None
 
 # By creating a usage function, you can always call that. Makes it easy to be user friendly
@@ -28,6 +28,8 @@ while len(sys.argv) > 1:
         optionA = True
     elif arg == '-m':
         optionM = True
+    elif arg == '-n':
+        optionN = True
     elif arg == '-c':
         try:
             # There are possibility for failure here - no argument, not integer
@@ -48,7 +50,6 @@ def average(lst):
         return 0
     return sum(lst) / len(lst)
 
-
 def median(lst):
     if not lst:
         return 0
@@ -61,6 +62,9 @@ def median(lst):
         return (lst[mid - 1] + lst[mid]) / 2
     else:
         return lst[mid]
+
+def obs(lst):
+    return len(lst)
     
 # Working with the options
 if filename is None:
@@ -74,6 +78,8 @@ if optionNumber is not None:
 else: 
     num_list = df.iloc[:,1:].to_numpy().ravel().tolist()
 if optionA:
-    print(f"the average number is:\t{average(num_list)}")
+    print(f"the average number is:\n{average(num_list)}")
 if optionM:
-    print(f"the median number is:\t{median(num_list)}")    
+    print(f"the median number is:\n{median(num_list)}")    
+if optionN: 
+    print(f"the number of obeservations is\n{obs(num_list)}")
