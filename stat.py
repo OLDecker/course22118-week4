@@ -8,7 +8,7 @@ import pandas as pd
 # In my example two options are just present or not, but the third requires a number to follow.
 # By initalising the option to None, you can later tell that you did not get this option.
 # If you initialise it to a value instead, then that becomes a default value, ready to use. 
-optionA, optionM, optionNumber, optionN = None, None, None, None
+optionA, optionM, optionNumber, optionN, optionB = None, None, None, None, None
 filename = None
 
 # By creating a usage function, you can always call that. Makes it easy to be user friendly
@@ -30,6 +30,8 @@ while len(sys.argv) > 1:
         optionM = True
     elif arg == '-n':
         optionN = True
+    elif arg == '-b':
+        optionB = True
     elif arg == '-c':
         try:
             # There are possibility for failure here - no argument, not integer
@@ -65,6 +67,9 @@ def median(lst):
 
 def obs(lst):
     return len(lst)
+
+def biggest(lst):
+    return max(lst)
     
 # Working with the options
 if filename is None:
@@ -83,3 +88,7 @@ if optionM:
     print(f"the median number is:\n{median(num_list)}")    
 if optionN: 
     print(f"the number of obeservations is\n{obs(num_list)}")
+if optionB:
+    print(f"the biggest number is\n{biggest(num_list)}")
+
+
