@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # This program demonstrates a way to get arguments and options from command line
 import sys
-
 import pandas as pd
 
 # You should use more appropriately named variable names than me.
@@ -9,7 +8,7 @@ import pandas as pd
 # In my example two options are just present or not, but the third requires a number to follow.
 # By initalising the option to None, you can later tell that you did not get this option.
 # If you initialise it to a value instead, then that becomes a default value, ready to use. 
-optionA, optionB, optionNumber = None, None, None
+optionA, optionM, optionNumber = None, None, None
 filename = None
 
 # By creating a usage function, you can always call that. Makes it easy to be user friendly
@@ -27,8 +26,8 @@ while len(sys.argv) > 1:
     arg = sys.argv.pop(1)
     if arg == '-a':
         optionA = True
-    elif arg == '-b':
-        optionB = True
+    elif arg == '-m':
+        optionM = True
     elif arg == '-c':
         try:
             # There are possibility for failure here - no argument, not integer
@@ -41,12 +40,27 @@ while len(sys.argv) > 1:
         filename = arg
     else:
         usage()
-    
+        
+        
 # functions
 def average(lst):
     if not lst:
         return 0
     return sum(lst) / len(lst)
+
+
+def median(lst):
+    if not lst:
+        return 0
+    
+    lst = sorted(lst)
+    n = len(lst)
+    mid = n // 2
+    
+    if n % 2 == 0:
+        return (lst[mid - 1] + lst[mid]) / 2
+    else:
+        return lst[mid]
     
 # Working with the options
 if filename is None:
@@ -54,14 +68,12 @@ if filename is None:
 else:
     print("Using this file:", filename)
     df = pd.read_csv(filename, sep='\t', header=None)
-if optionA:
-    print(f"the average number is:\t{average(num_list)}")
-
-if optionB:
-    print("OptionB is on the scene")    
 if optionNumber is not None:
     print("And the number is:", optionNumber)    
     num_list = df[optionNumber].tolist()
 else: 
     num_list = df.iloc[:,1:].to_numpy().ravel().tolist()
-print((average(num_list)))
+if optionA:
+    print(f"the average number is:\t{average(num_list)}")
+if optionM:
+    print(f"the median number is:\t{median(num_list)}")    
