@@ -8,7 +8,7 @@ import pandas as pd
 # In my example two options are just present or not, but the third requires a number to follow.
 # By initalising the option to None, you can later tell that you did not get this option.
 # If you initialise it to a value instead, then that becomes a default value, ready to use. 
-optionA, optionM, optionNumber, optionN, optionB, optionT = None, None, None, None, None, None
+optionA, optionM, optionNumber, optionN, optionB, optionT, optionF = None, None, None, None, None, None, None
 filename = None
 
 # By creating a usage function, you can always call that. Makes it easy to be user friendly
@@ -34,6 +34,8 @@ while len(sys.argv) > 1:
         optionB = True
     elif arg == '-t':
         optionT = True
+    elif arg == '-f':
+        optionF = True
     elif arg == '-c':
         try:
             # There are possibility for failure here - no argument, not integer
@@ -83,6 +85,15 @@ def trimmedmean(lst):
     if not trimmed:
         return 0
     return sum(trimmed) / len(trimmed)
+
+def frequent(lst):
+    if not lst:
+        return 0
+    counts = {}
+    for i in lst:
+        counts[i] = counts.get(i, 0) + 1 
+    return max(counts, key=counts.get)
+
     
 # Working with the options
 if filename is None:
@@ -105,5 +116,7 @@ if optionB:
     print(f"the biggest number is\n{biggest(num_list)}")
 if optionT:
     print(f"the trimmed mean is\n{trimmedmean(num_list)}")
+if optionF:
+    print(f"the most frequent number is:\n{frequent(num_list)}")
 
 
