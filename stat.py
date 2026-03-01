@@ -42,6 +42,12 @@ while len(sys.argv) > 1:
     else:
         usage()
     
+# functions
+def average(lst):
+    if not lst:
+        return 0
+    return sum(lst) / len(lst)
+    
 # Working with the options
 if filename is None:
     usage("Hey, you need a filename")
@@ -49,12 +55,13 @@ else:
     print("Using this file:", filename)
     df = pd.read_csv(filename, sep='\t', header=None)
 if optionA:
-    print("OptionA reporting for duty")    
+    print(f"the average number is:\t{average(num_list)}")
+
 if optionB:
     print("OptionB is on the scene")    
 if optionNumber is not None:
     print("And the number is:", optionNumber)    
-    df_col = df[optionNumber]
+    num_list = df[optionNumber].tolist()
 else: 
-    score_cols = df.columns[1:]
-    num_list = df[score_cols]
+    num_list = df.iloc[:,1:].to_numpy().ravel().tolist()
+print((average(num_list)))
